@@ -1,7 +1,7 @@
 """
 This script allows running a simulation from a terminal. It requires a .json parameter 
 file in argument (relative path from this script's location). Example:
-python runSingleSimu.py ./ListOfSimulations/myParameters1.json
+python3 runSingleSimu.py ./ListOfSimulations/myParameters1.json
 
 Parameter files completely define a simulation and should first be generated using the GUI.
 """
@@ -38,7 +38,7 @@ except:
 code = mod.RunSimulation(parameters)
 
 if code != 0:
-    if isinstance(code, str) or isinstance(code, unicode):
+    if isinstance(code, str):
         print(parameters['name'] + " did not run properly. The error message is:\n" + code)
     elif isinstance(code, int):
         print(parameters['name'] + " did not run properly. Check out Code_Aster message files. Exit code: " + str(code))
