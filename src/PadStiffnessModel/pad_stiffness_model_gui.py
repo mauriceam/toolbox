@@ -34,7 +34,7 @@ class PadStiffnessModelGUI(QMainWindow):
 
          #get selected material 1 & 2
 		self.currentMaterial1 = str(self.padMaterial1.currentText())
- 		self.currentMaterial2 = str(self.padMaterial2.currentText())
+		self.currentMaterial2 = str(self.padMaterial2.currentText())
 		# Set the value of the density and poisson ratio
 		# and Update value when material is changed
 		self.DisplayMX1(self.currentMaterial1)
@@ -168,10 +168,10 @@ class PadStiffnessModelGUI(QMainWindow):
 		
 		if (material == 1):
 			mx = self.padMaterial1.currentText()
-   			mx_type = 'hard'
+			mx_type = 'hard'
 		if (material == 2):
 			mx = self.padMaterial2.currentText()
-   			mx_type = 'soft'
+			mx_type = 'soft'
 		# Moving the material1 properties files in WD
 		# E1
 		src = os.path.join(self.materialspath, mx)
@@ -205,11 +205,14 @@ class PadStiffnessModelGUI(QMainWindow):
 		self.resultsDirectoryName = self.nameSimu.text()
 		self.resultsDirectoryPath = os.path.join(self.pathWorkingDirectory.text(), self.resultsDirectoryName)
          
-         # Create user folders for results
-		os.mkdir(self.resultsDirectoryPath)
-		os.mkdir(os.path.join(self.resultsDirectoryPath,'med_files'))
-		os.mkdir(os.path.join(self.resultsDirectoryPath,'stiffness_files'))
-		os.mkdir(os.path.join(self.resultsDirectoryPath,'message_files'))
+        # Create user folders for results
+		if os.path.exists(self.resultsDirectoryPath):
+			shutil.rmtree(self.resultsDirectoryPath)
+
+		os.makedirs(self.resultsDirectoryPath)
+		os.makedirs(os.path.join(self.resultsDirectoryPath,'med_files'))
+		os.makedirs(os.path.join(self.resultsDirectoryPath,'stiffness_files'))
+		os.makedirs(os.path.join(self.resultsDirectoryPath,'message_files'))
 		# Create a file for the study parameters
 		with open(os.path.join(self.resultsDirectoryPath,'study_parameters.txt'),'a+') as fp:
 			fp.write('Here are the parameters selected for the sutdy: ' + self.resultsDirectoryName + '\n\n')
@@ -246,13 +249,13 @@ class PadStiffnessModelGUI(QMainWindow):
 			self.MoveOnly(src, dst, fileName)
 
 		# Run the script in salome for 0D element from importPad to padWithRF
-		os.system('/opt/SalomeMeca/appli_V2019_univ/salome -t ' + self.working_directorypath + '/add_RF_node_to_pad.py')
+		os.system('__path__salome -t ' + self.working_directorypath + '/add_RF_node_to_pad.py')
 
 		# Run phase I
-		os.system('cd working_directory \n ./runPadStiffnessPhase1.sh')
+		os.system('cd working_directory \n bash ./runPadStiffnessPhase1.sh')
 
 		# Run phase II
-		os.system('cd working_directory \n ./runPadStiffnessPhase2.sh')
+		os.system('cd working_directory \n bash ./runPadStiffnessPhase2.sh')
 
 
 		# Copy messages in User folder

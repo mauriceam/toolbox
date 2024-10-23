@@ -2,7 +2,8 @@
 
 SCRIPT=$(realpath "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
+PYTHONPATH=__path__python
 
 cd $SCRIPTPATH
 
-python railtracktoolboxLauncher.py
+$PYTHONPATH railtracktoolboxLauncher.py

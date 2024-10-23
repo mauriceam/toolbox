@@ -18,6 +18,13 @@ For the last phase of the project, a company has joined the consortium to develo
 
 The project aims to reduce the noise emission of rail tracks and increase track maintenance intervals by the development of a new rail pad. The selected approach was the development of an experimental set-up combine with a digital tween (i.e. The Three Sleepers Model presented later). Other models have been developed and experimentally validated to achieve our goals.
 
+A second project, that is currently on going, called "Track System Evaluation" is aiming to add more functionalities to the tool box. The Rail Pad Project was focus on the pads and this new project aim to expand the models to test and assist the design off all components composing the track (i.e. rails, sleepers, clamps, ballast and pads).
+Thus the tool box will become more modular and with some added features, like pad and sleeper properties identification tools.
+
+The main branch of this repository contain the tool box as developed during the Rail Pad Project and the "track_evaluation" branch contain the development, on going, regarding the added functionalities.
+
+
+
 ## What is this toolbox for ?
 
 As said previously, the toolbox have been develops to design new rail pads, and thus can be used in the same way.  
@@ -75,7 +82,16 @@ The code was developed to run in a CAELinux 2020 Lite (http://www.caelinux.com) 
 The toolbox requires the following software installed on the system to run:
 1. Code_Aster with MFront support (tested version 14.6)
 2. Salome-Meca 2019 
-3. Python 2.7 with PyQT5, pyperclip and numpy libraries
+3. Python 2.7 with the following libraries:
+
+python scripts:
+os, sys, shutil, PyQt5, PyQt5.QtWidgets, PyQt5.uic, PyQt5.QtCore, pyperclip, json, multiprocessing, time, pickle, math, datetime, scipy, scipy.optimize, scipy.linalg, matplotlib, matplotlib.pyplot, csv, 
+
+Salome scripts:
+salome, salome.smesh, salome.geom, salome_notebook, SMESH, GEOM, SALOMEDS
+
+Aster scripts:
+Utilitai, aster_core
 
 ## Getting Started
 
@@ -95,10 +111,10 @@ Please note the default username / password is :
 
 *password*: caelinux
 
-If you decide to install "from scratch", you will need to have first a working installation of all the prerequisites (see src/INSTALL, src/dependencies.txt and src/installDependencies.sh) and then run the setup.sh script in the root of the toolbox:
+If you decide to install "from scratch", you will need to have first a working installation of all the prerequisites (see src/INSTALL, src/dependencies.txt and src/installDependencies.sh) and then run the setup0.sh and setup.sh scripts in the root of the toolbox:
 
 > cd PathToToolBox
-> 
+> ./setup0.sh
 > ./setup.sh
 
 
