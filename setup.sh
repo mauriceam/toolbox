@@ -64,11 +64,15 @@ echo -e "$modified_files"
 # Confirmation before modifying the files
 read -p "Do you want to proceed with modifications? (y/n): " confirmation
 if [ "$confirmation" = "y" ]; then
-    # Perform replacements for each string pair in the associative array
-    for search_string in "${!maListe[@]}"; do
-        replace_string=${maListe[$search_string]}
-        find . -type f ! -name 'setup.sh' -exec sed -i -E "s@$search_string@$replace_string@g" {} +
+    echo -e "$modified_files" | while IFS= read -r file; do
+        cp "$file" "$file.tmplt"
+
+        for search_string in "${!maListe[@]}"; do
+            replace_string=${maListe[$search_string]}
+            sed -i -E "s@$search_string@$replace_string@g" "$file"
+        done
     done
+
     echo "Modifications successfully applied."
 else
     echo "No modifications were made."

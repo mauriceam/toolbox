@@ -269,7 +269,7 @@ class PadStiffnessModelGUI(QMainWindow):
 		src = self.working_directorypath
 		dst = os.path.join(self.resultsDirectoryPath,'med_files')
 		for fileName in listOfFile:
-			self.MoveOnly(src, dst, fileName)
+			self.MoveOnly(src, dst, fileName) 
 		# Copy stiffness results in User folder
 		listOfFile = ['Stiffness_b1.txt', 'Stiffness_b2.txt', 'Stiffness_b3.txt', 'Stiffness_b4.txt']
 		src = self.working_directorypath

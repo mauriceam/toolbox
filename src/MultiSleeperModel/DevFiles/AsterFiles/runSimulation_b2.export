@@ -58,6 +58,7 @@ F libr Outputs/data_b2 R  44
 F libr Outputs/resuHarm_b2.med R  80
 F rmed Outputs/resuAcou_b2.med R  81
 F libr Outputs/FRF_b2.txt R  83
+F libr Outputs/nodeDisplacement_b2.txt R  84
 
 
 

@@ -60,6 +60,7 @@ F libr Outputs/resuHarm_b1.med R  80
 F rmed Outputs/resuAcou_b1.med R  81
 F libr Outputs/modalBasis_b1.med R  82
 F libr Outputs/FRF_b1.txt R  83
+F libr Outputs/nodeDisplacement_b1.txt R  84
 
 
 F mess __messagesDir__/message_harmonicSimu_b1.mess R  6
