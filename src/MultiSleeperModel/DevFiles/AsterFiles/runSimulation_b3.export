@@ -61,6 +61,7 @@ F libr Outputs/resuHarm_b3.med R  80
 F rmed Outputs/resuAcou_b3.med R  81
 
 F libr Outputs/FRF_b3.txt R  83
+F libr Outputs/nodeDisplacement_b3.txt R  84
 
 
 

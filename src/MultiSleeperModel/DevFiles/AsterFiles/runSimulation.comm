@@ -57,6 +57,10 @@ clampDampX = parameters['clampDampX']/2
 clampDampY = parameters['clampDampY']/2
 clampDampZ = parameters['clampDampZ']/2
 writeMED = parameters['writeMED']
+if parameters['writeDISP']:
+    writeDISP = parameters['writeDISP']
+else:
+    writeDISP = False
 
 nSlpAcoust1 = parameters['nSlpAcoust1']
 nSlpAcoust2 = parameters['nSlpAcoust2']
@@ -1804,11 +1808,56 @@ if writeMED:
             RESU=_F(MAILLAGE=squel,),
             UNITE=28)
 
+if writeDISP:
+    substructs3 = []
+    listGroupMa=[]
+    # for i in range(nSlp):
+    for i in nSlpAcoustRange:
+        substructs3.append(_F(NOM='elem'+str(i)+'R', GROUP_MA='railAcZ'))
+        listGroupMa.append( 'elem'+str(i)+'R' )
+        substructs3.append(_F(NOM='elem'+str(i)+'L', GROUP_MA='railAcZ'))
+        listGroupMa.append( 'elem'+str(i)+'L' )
+                                
+    squel2=DEFI_SQUELETTE(MODELE_GENE=modeGene,
+                        SOUS_STRUC=substructs3)
+
+    harmGlo2=REST_SOUS_STRUC(RESU_GENE=harmGene, 
+                            SQUELETTE=squel2,
+                            NOM_CHAM='DEPL',)
+
+    for freq in allFreqsJob:
+        out2 = CREA_CHAMP(FREQ=freq,
+                            NOM_CHAM='DEPL',
+                            OPERATION='EXTR',
+                            RESULTAT=harmGlo2,
+                            TYPE_CHAM='NOEU_DEPL_C')
+                            
+        # outMag2 = CREA_CHAMP(CHAM_GD=out2,
+        #                     OPERATION='C2R',
+        #                     PARTIE='REEL',
+        #                     TYPE_CHAM='NOEU_DEPL_R')
+            
+        if freq == allFreqsJob[0]:
+            resOut2 = CREA_RESU(OPERATION='AFFE',TYPE_RESU='DYNA_HARMO',NOM_CHAM='DEPL',AFFE=_F(CHAM_GD=out2, FREQ=freq),);
+        else:
+            resOut2 = CREA_RESU(reuse=resOut2, RESULTAT=resOut2, OPERATION='AFFE',TYPE_RESU='DYNA_HARMO',NOM_CHAM='DEPL',AFFE=_F(CHAM_GD=out2, FREQ=freq),);
+            
+        # DETRUIRE(CONCEPT=_F(NOM=(out2, outMag2, )))
+        DETRUIRE(CONCEPT=_F(NOM=(out2 )))
+
+    IMPR_RESU(FORMAT='RESULTAT',
+            RESU=_F(FORM_TABL='EXCEL',
+                  GROUP_MA=listGroupMa,
+                  IMPR_COOR='OUI',
+                  NOM_CHAM=('DEPL', ),
+                  RESULTAT=resOut2),
+            UNITE=84)
+
 ######################################################
 # POST-PROCESSING : Get force-velocity FRF functions
 ######################################################
 FRFs = [None]*len(selectedSubstFRF)*len(nodesFRF)
-phase = [None]*len(selectedSubstFRF)*len(nodesFRF)
+phas = [None]*len(selectedSubstFRF)*len(nodesFRF)
 
 if FRFtype == 'VITE':
     units = '[m/(s.N)]'
@@ -1899,7 +1948,7 @@ for substr in selectedSubstFRF:
                                ABSCISSE = allFreqsJob + [allFreqsJob[-1]+1e-2]*int(len(allFreqsJob)==1),
                                ORDONNEE = np.append(meanFRF, [meanFRF[-1]]*int(len(allFreqsJob)==1)))
         
-        phase[j] = DEFI_FONCTION(NOM_PARA = 'FREQ', 
+        phas[j] = DEFI_FONCTION(NOM_PARA = 'FREQ', 
                                ABSCISSE = allFreqsJob + [allFreqsJob[-1]+1e-2]*int(len(allFreqsJob)==1),
                                ORDONNEE = np.append(mnFRF_ph, [mnFRF_ph[-1]]*int(len(allFreqsJob)==1)))
                                
@@ -1914,7 +1963,7 @@ for freq in allFreqsJob:
         else:
             FRFdataline.append(str(frf(freq)*normCoef))
 
-        phs = phase[i]
+        phs = phas[i]
         if phs is None:
             FRFdataline.append('NaN')
         else:
