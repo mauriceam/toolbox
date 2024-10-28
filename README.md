@@ -1,29 +1,35 @@
+# Rail Track Modelling Toolbox - Multi-project Evolution
 
-# Rail Track Modelling Toolbox
+## Introduction
+The *Rail Track Modelling Toolbox* is a set of models dedicated to reducing railway noise and optimizing track maintenance. Initially developed as part of the *Novel Rail Pads for Improved Noise Reduction and Reduced Track Maintenance* project, the Toolbox has evolved through several research projects to incorporate advanced features.
 
-## Context of development
+## Development Context
+The Toolbox has been developed across three major projects:
 
-This toolbox have been developed during a project called:
-*Novel Rail Pads for Improved Noise Reduction and Reduced Track Maintenance.*  
-This project was founded by the [Swiss Federal Office for the ENvironment FOEN](https://www.bafu.admin.ch/bafu/en/home/office.html) and carried out by a consortium of scientific laboratories form Switzerland. This consortium was a collaboration between the following entities:
-
-- [Swiss Institute of Technology of Lausanne](https://www.epfl.ch/en/) (EPFL),  
-- [Swiss Federal Railways](https://www.sbb.ch/en/home.html) (SBB),  
-- [School of Engineering and Management of Yverdon](https://heig-vd.ch/en) (HEIG-vd),  
-- [Swiss Federal Laboratories for Materials Science and Technology](https://www.empa.ch/) (EMPA).  
+- **Novel Rail Pads for Improved Noise Reduction and Reduced Track Maintenance:** This project, funded by the [Swiss Federal Office for the Environment (FOEN)](https://www.bafu.admin.ch/bafu/en/home.html), aimed to develop new rail pads to reduce noise emissions and extend the maintenance intervals of railway tracks. The project was a collaboration between several Swiss research institutes:
+  - [Swiss Federal Institute of Technology Lausanne (EPFL)](https://www.epfl.ch/en/)
+  - [Swiss Federal Railways (SBB)](https://www.sbb.ch/en/home.html)
+  - [School of Engineering and Management of Yverdon (HEIG-vd)](https://heig-vd.ch/en)
+  - [Swiss Federal Laboratories for Materials Science and Technology (EMPA)](https://www.empa.ch/)
 
 For the last phase of the project, a company has joined the consortium to develop prototype railpad:
 
 - [Semperit Group](https://www.semperitgroup.com/) from Austria
 
-The project aims to reduce the noise emission of rail tracks and increase track maintenance intervals by the development of a new rail pad. The selected approach was the development of an experimental set-up combine with a digital tween (i.e. The Three Sleepers Model presented later). Other models have been developed and experimentally validated to achieve our goals.
+The selected approach was the development of an experimental set-up combine with a digital twin (i.e. The Three Sleepers Model presented later). Other models have been developed and experimentally validated to achieve our goals.
 
-A second project, that is currently on going, called "Track System Evaluation" is aiming to add more functionalities to the tool box. The Rail Pad Project was focus on the pads and this new project aim to expand the models to test and assist the design off all components composing the track (i.e. rails, sleepers, clamps, ballast and pads).
-Thus the tool box will become more modular and with some added features, like pad and sleeper properties identification tools.
+- **Track System Evaluation:** This project expanded the Toolbox by adding tools to evaluate and assist in the design of all components of the railway track (rails, sleepers, fasteners, ballast, etc.). New features, such as tools for identifying pads and sleeper properties, were developed.
 
-The main branch of this repository contain the tool box as developed during the Rail Pad Project and the "track_evaluation" branch contain the development, on going, regarding the added functionalities.
+- **TopNoise (ongoing):** The *TopNoise* project is currently continuing the evolution of the Toolbox with new models for more advanced noise management and railway infrastructure improvements.
 
+## Versions and Releases
+The Toolbox releases reflect the different stages of development:
 
+- **V1.0.0:** The first release following the *Novel Rail Pads* project. This version contains the initial models for noise reduction and rail optimization.
+  
+- **V2.0.0:** The second release after the *Track System Evaluation* project. This version introduces more modular models and new features to test all components of the railway track.
+
+- **V3.0.0 (ongoing):** The current version under development as part of the *TopNoise* project. It includes further improvements, especially in noise management and advanced diagnostic tools.
 
 ## What is this toolbox for ?
 
@@ -32,7 +38,7 @@ Furthermore, models has been created using open source tools and can be easily m
 Therefore this toolbox is the first step in the creation of a open source and collaborative platform for the rail way experts.  
 Anyone interested and working in this field can use and/or developed the existing models or add new ones.
 
-## What does it contain ?
+## What models composed the Toolbox ?
 
 This toolbox is composed of four finite element models and one semi-analytical model:
 
@@ -71,11 +77,33 @@ The multi-sleeper FE model is a large scale 3D structural model of a railtrack (
 
 ## Download
 
-To facilitate the use of the toolbox, a custom version of CAELinux 2020 is provided as a ISO image which can be used to install a physical or virtual machine with all software preconfigured. To use the toolbox in another Linux operating system. including Windows WSL2, a Singularity container image is also provided.
+There are multiple ways of using the toolbox depending on your needs and knowledges:
+1. Downloading a custom version of CAELinux 2020 (ISO image).
+2. Downloading a Singularity container image.
+3. Downloading all the files and doing a manual installation.
+
+### Custom version of CAELinux 2020
+
+To facilitate the use of the toolbox, a custom version of CAELinux 2020 is provided as a ISO image which can be used to install a physical or virtual machine with all software preconfigured. 
 
 Download link to the virtual machine image/ container: see [readme.md](./ToolboxVM/readme.md) in ToolboxVM folder.
 
-## Libraries and dependencies
+### Singularity container
+
+To use the toolbox in another Linux operating system. including Windows WSL2, a Singularity container image is provided.
+
+To simplify the download and installation of Singularity two bash scripts have been done to automate all the steps:
+1. The first one can be used to install Singularity programme on you linux (or WSL2) machine:
+```bash
+bash ./install_singularity_linux.sh
+```
+2. The second one automate the download of the singularity image, the github repository and create an overlay with the selected Github branch or last version of the toolbox on the container:
+```bash
+bash ./singularity_with_overlay.sh branch_name
+```
+
+
+### Manual installation
 
 The code was developed to run in a CAELinux 2020 Lite (http://www.caelinux.com) but can be adapted to run on other similar distributions (Ubuntu 18.04 for example).
 
@@ -99,6 +127,8 @@ This repository contain three folders: *Documentation*, *src* and *Toolbox-VM*.
 
 The first folder contain the documentation of the toolbox: description of the models, how to use the interface and so on. The second folder, *src*, contain the individual models. The last folder, *Toolbox-VM*, contain a ISO image of a customized CAELinux/Ubuntu 18.04 environment with the whole toolbox ready to be used. 
 
+### CAELinux or custom installation
+
 The easiest way to start using the toolbox is to download and use the *ISO* image in *Toolbox-VM*. This image can be used to create a bootable USB disk (using Ventoy https://www.ventoy.net is recommended) in order to boot and install the OS + toolbox on a physical PC. Or even simpler, the ISO image can be used directly to install a Virtual Machine, on any OS, for example in VMware player https://www.vmware.com/fr/products/workstation-player.html.
 
 Once booted from the ISO image, the (virtual) machine can be installed by running.  
@@ -117,12 +147,24 @@ If you decide to install "from scratch", you will need to have first a working i
 > ./setup0.sh
 > ./setup.sh
 
-
 Once installed, the best way to start using the model is to use the GUI provided for each model. Part of the documentation describes the steps to follow in order to run a simulation with the selected model.
+
+### Singularity
+
+To launch and work with the Toolbox using the Singularity container, a specific documentation is available with the usual commands and basic explanations.
+
+Nevertheless the toolbox can be launch using the following command:
+```bash
+   singularity run --overlay overlay.img toolbox.sif
+   ```
 
 ## Hardware requirements
 
 The FE models included in this toolbox require at least a 4 core CPU with 16Gb of RAM to run. However, to run simulations in parallel and with detailed 3D mesh, a 8 to 16 core CPU with at 64Gb of RAM is optimal. Most of the simulations that we have carried out have been running on AMD Threadripper 24 core 128Gb or 16core 64Gb workstations. To make use of the available computer resources, please edit the ".export" files in the "working_directory" folders of the models. See Code-Aster documentation for the details of the .export files.
+
+## Model Documentation
+
+For each model included in the Toolbox, comprehensive technical documentation is available. Refer to the corresponding files in the GitHub repository for detailed information on their usage and applications.
 
 ## Contributing
 
